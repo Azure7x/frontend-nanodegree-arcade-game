@@ -27,10 +27,11 @@
 class Enemy{
   constructor(){
     this.sprite = 'images/enemy-bug.png';
+    //sets a random speed for bug
     this.speed = getRandomNumber(35, 99);
     this.x = 0;
+    //randomly chooses a row for the bug enemy to spawn on
     this.row = getRandomNumber(1,3);
-
     switch (this.row) {
       case 1:
         this.y = 62;
@@ -49,9 +50,11 @@ class Enemy{
 
   update(dt){
     this.x = this.x + (dt * this.speed);
+    //controls what happens to bug when offscreen
     if(this.x > 500){
-      allEnemies.pop();
-      console.log("enemy removed");
+      // allEnemies.pop();
+      // console.log("enemy removed");
+      this.x = getRandomNumber(-300, -100);
     }
   }
 
@@ -77,6 +80,7 @@ class Player{
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
   update(dt){
+    //returns player to starting position when touching the water
     if(this.y < 0){
       this.y = this.startPositionY;
       this.x = this.startPositionX;
@@ -99,16 +103,14 @@ class Player{
           break;
 
       case 'up':
-
             this.y -= 83;
-
           break;
+
       case 'down':
           if(this.y + 83 <= 402){
             this.y += 83;
           }
           break;
-
     }
 
   }
@@ -136,6 +138,7 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+//generates a random whole number within the min and max parameters, inclusive
 function getRandomNumber(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
