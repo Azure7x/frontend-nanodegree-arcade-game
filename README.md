@@ -8,6 +8,7 @@ A simple frogger style game.
 * The keyboard arrows control the players movement.
 * Touching the crossing bugs resets the player to the starting position.
 * Game is won when the player reaches the water above the crossing bugs.
+* Try to get all the stars for an extra challenge.
 
 ## Dependencies
 
