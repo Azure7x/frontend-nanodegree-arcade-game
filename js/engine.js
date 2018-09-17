@@ -94,6 +94,15 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        let starCounter = -1;
+        allStars.forEach(function(star){
+          starCounter++;
+          star.update();
+          if(!star.active){
+            allStars.splice(starCounter,1);
+            starCounter--;
+          }
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -154,6 +163,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+        allStars.forEach(function(star){
+          star.render();
+        });
+
     }
 
     /* This function does nothing but it could have been a good place to
@@ -174,7 +187,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/gem-blue.png'
+        'images/star.png'
     ]);
     Resources.onReady(init);
 

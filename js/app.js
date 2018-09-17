@@ -26,6 +26,35 @@
 
 let numMoves = 0;
 let bugHits = 0;
+let stars = 0;
+
+class Star{
+  constructor(row){
+    this.sprite = 'images/star.png';
+    this.x = getRandomNumber(0, 4);
+    this.x *= 100;
+    this.y = row * 78;
+
+    this.starLeft = this.x - 50;
+    this.starRight = this. x + 50;
+    this.starTop = this.y + 40;
+    this.starBottom = this.y - 40;
+
+    this.active = true;
+  }
+
+  update(dt){
+    if(player.x > this.starLeft && player.x < this.starRight
+      && player.y < this.starTop && player.y > this.starBottom){
+        stars++;
+        this.active = false;
+      }
+  }
+
+  render(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+}
 
 class Enemy{
   constructor(){
@@ -109,6 +138,7 @@ class Player{
     if(this.y < 0){
       document.getElementById("turns").innerHTML = numMoves;
       document.getElementById("hits").innerHTML = (bugHits === 1) ? bugHits + " time." : bugHits + " times.";
+      document.getElementById("stars").innerHTML = (stars === 1) ? stars + " star." : stars + " stars.";
       document.getElementsByClassName("modal")[0].style.display = "block";
       document.getElementsByClassName("modal-victory")[0].style.display = "block";
       // this.y = this.startPositionY;
@@ -167,6 +197,7 @@ class Player{
 // Place the player object in a variable called player
 let allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
 let player = new Player();
+let allStars = [new Star(1), new Star(2), new Star(3)];
 
 
 // This listens for key presses and sends the keys to your
