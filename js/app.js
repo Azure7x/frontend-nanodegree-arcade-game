@@ -30,7 +30,7 @@ let stars = 0;
 
 class Star{
   constructor(row){
-    this.sprite = 'images/star.png';
+    this.sprite = 'images/Star.png';
     this.x = getRandomNumber(0, 4);
     this.x *= 100;
     this.y = row * 78;
