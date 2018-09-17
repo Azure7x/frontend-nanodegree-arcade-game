@@ -24,6 +24,9 @@
 //     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 // };
 
+let numMoves = 0;
+let bugHits = 0;
+
 class Enemy{
   constructor(){
     this.sprite = 'images/enemy-bug.png';
@@ -34,16 +37,22 @@ class Enemy{
   }
 
   update(dt){
-    this.x += (dt * this.speed);
-
+    //prevents bugs from moving when game is won
+    if(player.y >= 0){
+      //responsible for making the bugs move
+      this.x += (dt * this.speed);
+    }
+    //used to keep track of bugs size and location for collision
     this.enemyLeft = this.x - 50;
     this.enemyRight = this.x + 50;
     this.enemyTop = this.y + 40;
     this.enemybottom = this.y - 40;
-
-    if(player.x > this.enemyLeft && player.x < this.enemyRight && player.y < this.enemyTop && player.y > this.enemybottom){
+    //checks collision with player
+    if(player.x > this.enemyLeft && player.x < this.enemyRight
+      && player.y < this.enemyTop && player.y > this.enemybottom){
       player.x = player.startPositionX;
       player.y = player.startPositionY;
+      bugHits++;
     }
 
     //changes bug speed and row when offscreen
@@ -96,40 +105,51 @@ class Player{
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
   update(dt){
-    //returns player to starting position when touching the water
+    //game is won when the player reaches the water
     if(this.y < 0){
-      this.y = this.startPositionY;
-      this.x = this.startPositionX;
+      document.getElementById("turns").innerHTML = numMoves;
+      document.getElementById("hits").innerHTML = (bugHits === 1) ? bugHits + " time." : bugHits + " times.";
+      document.getElementsByClassName("modal")[0].style.display = "block";
+      document.getElementsByClassName("modal-victory")[0].style.display = "block";
+      // this.y = this.startPositionY;
+      // this.x = this.startPositionX;
     }
   }
 
   //handles player movement
   handleInput(input){
-    switch (input) {
+    //prevents movement after the game is won
+    if(this.y >= 0){
+      //responsible for movement when game is still active
+      switch (input) {
 
-      case 'left':
-        if(this.x - 101 >= 0){
-          this.x -= 101;
-        }
-        break;
-
-      case 'right':
-          if(this.x + 101 < 500){
-            this.x += 101;
+        case 'left':
+          if(this.x - 101 >= 0){
+            this.x -= 101;
+            numMoves++;
           }
           break;
 
-      case 'up':
-            this.y -= 83;
-          break;
+        case 'right':
+            if(this.x + 101 < 500){
+              this.x += 101;
+              numMoves++;
+            }
+            break;
 
-      case 'down':
-          if(this.y + 83 <= 402){
-            this.y += 83;
-          }
-          break;
-    }
+        case 'up':
+              this.y -= 83;
+              numMoves++;
+            break;
 
+        case 'down':
+            if(this.y + 83 <= 402){
+              this.y += 83;
+              numMoves++;
+            }
+            break;
+      }
+  }
   }
 }
 // Now instantiate your objects.
