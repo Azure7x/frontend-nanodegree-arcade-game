@@ -28,7 +28,7 @@ class Enemy{
   constructor(){
     this.sprite = 'images/enemy-bug.png';
     //sets a random speed for bug
-    this.speed = getRandomNumber(35, 200);
+    this.speed = getRandomNumber(35, 400);
     this.x = 0;
     this.setRow();
   }
@@ -41,13 +41,18 @@ class Enemy{
     this.enemyTop = this.y + 40;
     this.enemybottom = this.y - 40;
 
+    if(player.x > this.enemyLeft && player.x < this.enemyRight && player.y < this.enemyTop && player.y > this.enemybottom){
+      player.x = player.startPositionX;
+      player.y = player.startPositionY;
+    }
+
     //changes bug speed and row when offscreen
     if(this.x > 500){
       // allEnemies.pop();
       // console.log("enemy removed");
       this.x = getRandomNumber(-300, -100);
       this.setRow();
-      this.speed = getRandomNumber(35, 200);
+      this.speed = getRandomNumber(35, 400);
     }
   }
 
