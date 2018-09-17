@@ -150,6 +150,16 @@ class Player{
             break;
       }
   }
+
+  if(input == 'spacebar'){
+    this.x = this.startPositionX;
+    this.y = this. startPositionY;
+    numMoves = 0;
+    bugHits = 0;
+    document.getElementsByClassName("modal")[0].style.display = "none";
+    document.getElementsByClassName("modal-victory")[0].style.display = "none";
+    allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
+  }
   }
 }
 // Now instantiate your objects.
@@ -166,7 +176,8 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        32: 'spacebar'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
