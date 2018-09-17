@@ -28,8 +28,34 @@ class Enemy{
   constructor(){
     this.sprite = 'images/enemy-bug.png';
     //sets a random speed for bug
-    this.speed = getRandomNumber(35, 99);
+    this.speed = getRandomNumber(35, 200);
     this.x = 0;
+    this.setRow();
+  }
+
+  update(dt){
+    this.x += (dt * this.speed);
+
+    this.enemyLeft = this.x - 50;
+    this.enemyRight = this.x + 50;
+    this.enemyTop = this.y + 40;
+    this.enemybottom = this.y - 40;
+
+    //changes bug speed and row when offscreen
+    if(this.x > 500){
+      // allEnemies.pop();
+      // console.log("enemy removed");
+      this.x = getRandomNumber(-300, -100);
+      this.setRow();
+      this.speed = getRandomNumber(35, 200);
+    }
+  }
+
+  render(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  setRow(){
     //randomly chooses a row for the bug enemy to spawn on
     this.row = getRandomNumber(1,3);
     switch (this.row) {
@@ -45,21 +71,6 @@ class Enemy{
       default:
         this.y = 62;
     }
-
-  }
-
-  update(dt){
-    this.x = this.x + (dt * this.speed);
-    //controls what happens to bug when offscreen
-    if(this.x > 500){
-      // allEnemies.pop();
-      // console.log("enemy removed");
-      this.x = getRandomNumber(-300, -100);
-    }
-  }
-
-  render(){
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 }
 
@@ -87,6 +98,7 @@ class Player{
     }
   }
 
+  //handles player movement
   handleInput(input){
     switch (input) {
 
@@ -115,13 +127,10 @@ class Player{
 
   }
 }
-
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let newEnemy = new Enemy(80);
-let allEnemies = [newEnemy];
+let allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
 let player = new Player();
 
 
