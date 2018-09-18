@@ -1,29 +1,3 @@
-// // Enemies our player must avoid
-// var Enemy = function() {
-//     // Variables applied to each of our instances go here,
-//     // we've provided one for you to get started
-//
-//     // The image/sprite for our enemies, this uses
-//     // a helper we've provided to easily load images
-//     this.sprite = 'images/enemy-bug.png';
-//     this.x = 0;
-//     this.y = 62 ;
-// };
-//
-// // Update the enemy's position, required method for game
-// // Parameter: dt, a time delta between ticks
-// Enemy.prototype.update = function(dt) {
-//     // You should multiply any movement by the dt parameter
-//     // which will ensure the game runs at the same speed for
-//     // all computers.
-//     this.x = this.x + (dt * 90);
-// };
-//
-// // Draw the enemy on the screen, required method for game
-// Enemy.prototype.render = function() {
-//     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-// };
-
 let numMoves = 0;
 let bugHits = 0;
 let stars = 0;
@@ -87,8 +61,6 @@ class Enemy{
 
     //changes bug speed and row when offscreen
     if(this.x > 500){
-      // allEnemies.pop();
-      // console.log("enemy removed");
       this.x = getRandomNumber(-300, -100);
       this.setRow();
       this.speed = getRandomNumber(35, 400);
@@ -142,9 +114,7 @@ class Player{
       document.getElementById("stars").innerHTML = (stars === 1) ? stars + " star." : stars + " stars.";
       document.getElementsByClassName("modal")[0].style.display = "block";
       document.getElementsByClassName("modal-victory")[0].style.display = "block";
-      // this.y = this.startPositionY;
-      // this.x = this.startPositionX;
-    }
+          }
   }
 
   //handles player movement
