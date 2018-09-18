@@ -162,10 +162,12 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
+
         allStars.forEach(function(star){
           star.render();
         });
+
+        player.render();
 
     }
 

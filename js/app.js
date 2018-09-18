@@ -34,16 +34,17 @@ class Star{
     this.x = getRandomNumber(0, 4);
     this.x *= 100;
     this.y = row * 78;
-
+    //gets the star boundaries
     this.starLeft = this.x - 50;
     this.starRight = this. x + 50;
     this.starTop = this.y + 40;
     this.starBottom = this.y - 40;
-
+    //active status sets whether star shows on screen
     this.active = true;
   }
 
   update(dt){
+    //checks to see if player touches star
     if(player.x > this.starLeft && player.x < this.starRight
       && player.y < this.starTop && player.y > this.starBottom){
         stars++;
@@ -181,11 +182,13 @@ class Player{
       }
   }
 
+  //resets the game when when the spacebar is pressed
   if(input == 'spacebar'){
     this.x = this.startPositionX;
     this.y = this. startPositionY;
     numMoves = 0;
     bugHits = 0;
+    stars = 0;
     document.getElementsByClassName("modal")[0].style.display = "none";
     document.getElementsByClassName("modal-victory")[0].style.display = "none";
     allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
