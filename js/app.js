@@ -192,6 +192,7 @@ class Player{
     document.getElementsByClassName("modal")[0].style.display = "none";
     document.getElementsByClassName("modal-victory")[0].style.display = "none";
     allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
+    allStars = [new Star(1), new Star(2), new Star(3)];
   }
   }
 }
